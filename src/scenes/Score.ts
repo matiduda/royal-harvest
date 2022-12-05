@@ -26,8 +26,6 @@ export class Score extends Container {
         this.score = 0;
         this.addChild(this.scoreText);
         Ticker.shared.add(this.update, this);
-
-
     }
 
     private update(): void {

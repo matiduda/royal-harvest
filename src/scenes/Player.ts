@@ -1,4 +1,4 @@
-import { Container, AnimatedSprite, Ticker, Texture } from "pixi.js";
+import { Container, AnimatedSprite, Ticker, Loader } from "pixi.js";
 import { Keyboard } from "./Keyboard"
 
 export class Player extends Container {
@@ -6,7 +6,7 @@ export class Player extends Container {
     private readonly screenWidth: number;
     private readonly screenHeight: number;
 
-    private clampy: AnimatedSprite;
+    private clampy!: AnimatedSprite; // TODO: Check if this is correct
     private clampyVelocity: number = 0;
     private maxVelocity: number = 15;
 
@@ -15,23 +15,17 @@ export class Player extends Container {
 
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+        const animation = Loader.shared.resources.player.spritesheet?.animations['knight iso char_idle']
 
-        // This is an array of strings, we need an array of Texture
-        const clampyFrames: Array<string> = [
-            'player/knight iso char_idle_0.png',
-            'player/knight iso char_idle_1.png',
-            'player/knight iso char_idle_2.png',
-            'player/knight iso char_idle_3.png'
-        ];
+        if (animation === undefined) {
+            console.log("Animation for the player is not loaded!");
+            return;
+        }
 
-        // `array.map()` creates an array from another array by doing something to each element.
-        // `(stringy) => Texture.from(stringy)` means
-        // "A function that takes a string and returns a Texture.from(that String)"
-        this.clampy = new AnimatedSprite(clampyFrames.map((stringy) => Texture.from(stringy)));
-        // (if this javascript is too much, you can do a simple for loop and create a new array with Texture.from())
+        this.clampy = new AnimatedSprite(animation);
 
         this.clampy.anchor.set(0.5);
-        this.clampy.x = 0; // we start it at 0
+        this.clampy.x = this.screenWidth / 2;
         this.clampy.y = this.screenHeight * 0.9;
 
         this.clampy.animationSpeed = 0.05;
