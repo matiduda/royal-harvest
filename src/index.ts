@@ -1,11 +1,11 @@
-import { Manager } from './scenes/Manager'; // This is the import statement
-import { Scene } from './scenes/Scene'; // This is the import statement
+import { Manager } from './scenes/SceneManager';
+import { Loading } from './scenes/Loading';
 
-const APP_WIDTH: number = 1080;
-const APP_HEIGHT: number = 1080;
+const _APP_WIDTH: number = 1080;
+const _APP_HEIGHT: number = 1080;
+const _APP_BACKGROND: number = 0xFFFFFF;
 
-Manager.initialize(APP_WIDTH, APP_HEIGHT, 0xFFFFFF);
+Manager.initialize(_APP_WIDTH, _APP_HEIGHT, _APP_BACKGROND);
 
-const Game = new Scene(Manager.width, Manager.height);
-
-Manager.changeScene(Game);
+const loadingScreen: Loading = new Loading();
+Manager.changeScene(loadingScreen);

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@pixi/sound": "^5.0.0",
+    "favicons": "^7.0.2",
     "n": "^9.0.1",
     "pixi.js": "^6.3.0"
   },

@@ -5,7 +5,6 @@
         "sourceMap": true,
         "target": "es2015",
         "module": "ESNext",
-    
         // Rules for your code
         "strict": true,
         "noImplicitAny": true,
@@ -14,14 +13,12 @@
         "noUnusedLocals": true,
         "noFallthroughCasesInSwitch": true,
         "noImplicitOverride": true,
-
         // Settings for linking source files
         "moduleResolution": "node",
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
-
     },
     // Folder for your code
     "include": [
