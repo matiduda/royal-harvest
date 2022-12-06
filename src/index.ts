@@ -1,16 +1,11 @@
-import { Application } from 'pixi.js'
+import { Manager } from './scenes/Manager'; // This is the import statement
 import { Scene } from './scenes/Scene'; // This is the import statement
 
-const app = new Application({
-	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
-	resolution: window.devicePixelRatio || 1,
-	autoDensity: true,
-	backgroundColor: 0x6495ed,
-	width: 640,
-	height: 480
-});
+const APP_WIDTH: number = 1080;
+const APP_HEIGHT: number = 1080;
 
-// pass in the screen size to avoid "asking up"
-const sceny: Scene = new Scene(app.screen.width, app.screen.height);
+Manager.initialize(APP_WIDTH, APP_HEIGHT, 0xFFFFFF);
 
-app.stage.addChild(sceny)
+const Game = new Scene(Manager.width, Manager.height);
+
+Manager.changeScene(Game);

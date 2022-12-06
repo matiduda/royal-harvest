@@ -1,6 +1,7 @@
 import { Container, Ticker, TextStyle, Text, DisplayObject } from "pixi.js";
 import { Player } from "./Player"
 import { Fruit } from "./Fruit"
+import { Sound } from "@pixi/sound";
 
 export class Score extends Container {
 
@@ -9,6 +10,8 @@ export class Score extends Container {
 
     private scoreText: Text;
     private score: number;
+
+    private chime: Sound;
 
     constructor(player: Player, fruit: Fruit) {
         super();
@@ -26,6 +29,9 @@ export class Score extends Container {
         this.score = 0;
         this.addChild(this.scoreText);
         Ticker.shared.add(this.update, this);
+
+        this.chime = Sound.from("chime.mp3");
+        this.chime.volume = 1;
     }
 
     private update(): void {
@@ -33,6 +39,8 @@ export class Score extends Container {
         if (this.checkCollision(this.player, this.fruit)) {
             this.score += 1;
             this.scoreText.text = 'Your score: ' + this.score;
+
+            this.chime.play();
 
             this.fruit.respawn();
         }
