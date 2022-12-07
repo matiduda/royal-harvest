@@ -4,16 +4,15 @@
 
 #### **Backstory**
 
-
 > *Once upon a time, there was a Knight from a Land Far, Far Away. He defended The Kingdom where people lived a peaceful life. Recently, however, due to the drought, the people in The Kindgom have been starving. Then, one day, the Knight saw a true miracle - a start falling from the sky. Suddenly, an **unprecedented amount of food** began falling from the sky. So he began to catch as many of them as he could.*
 
 ## How to build
 
 Simply clone this repository and run
-
 ```
 npm install && npm start
 ```
+> This release of the game was tested on **node v16.16.0** and **npm 8.11.0**
 
 ## Assets used
 
