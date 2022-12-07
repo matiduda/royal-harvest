@@ -15,16 +15,16 @@ export class TouchArea extends Container {
         this.left.interactive = true;
         this.left.buttonMode = true;
 
-        this.left.on('pointerdown', () => this.leftPressed());
-        this.left.on('pointerup', () => this.leftDone());
+        this.left.on('touchstart', () => this.leftPressed());
+        this.left.on('touchend', () => this.leftDone());
 
         this.right = new Sprite();
         this.right.hitArea = new Rectangle(Manager.width / 2, 0, Manager.width / 2, Manager.height);
         this.right.interactive = true;
         this.right.buttonMode = true;
 
-        this.right.on('pointerdown', () => this.rightPressed());
-        this.right.on('pointerup', () => this.rightDone());
+        this.right.on('touchstart', () => this.rightPressed());
+        this.right.on('touchend', () => this.rightDone());
 
         this.addChild(this.left, this.right);
     }
@@ -36,12 +36,10 @@ export class TouchArea extends Container {
 
     private leftDone() {
         Keyboard.state.set('ArrowLeft', false);
-
     }
 
     private rightPressed() {
         Keyboard.state.set('ArrowRight', true);
-
     }
 
     private rightDone() {

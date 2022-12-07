@@ -45,24 +45,13 @@ export class PowerBar extends Container {
     }
 
     public isFilled() {
-        return this.points === this.maxPoints;
+        return this.points === this.maxPoints - 1;
     }
 
     public addPoint() {
-        if (this.points < this.maxPoints) {
+        if (this.points < this.maxPoints - 1) {
             this.points++;
         } else {
-            this.points = 0;
-        }
-
-        this.updateBar();
-    }
-
-    public removePoint() {
-        if (this.points > 0) {
-            this.points--;
-        } else {
-            // TODO: Game over
             this.points = 0;
         }
 

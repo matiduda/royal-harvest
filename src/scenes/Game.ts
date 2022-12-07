@@ -1,4 +1,4 @@
-import { Container, DisplayObject, Loader } from "pixi.js";
+import { Container, DisplayObject, Loader, Sprite } from "pixi.js";
 import { Sound } from "@pixi/sound";
 import { SceneInterface } from "./SceneInterface";
 import { Fruit } from "../entity/Fruit";
@@ -10,8 +10,12 @@ import { Score } from "../entity/Score";
 import { Result } from "./Result";
 import { Keyboard } from "../helper/Keyboard";
 import { TouchArea } from "../helper/TouchArea";
+import { Clouds } from "../entity/Clouds";
 
 export class Game extends Container implements SceneInterface {
+
+    private background: Sprite;
+    private grass: Sprite;
 
     private player: Player;
 
@@ -21,6 +25,8 @@ export class Game extends Container implements SceneInterface {
     private powerBar: PowerBar;
 
     private fruits: Fruit[] = new Array<Fruit>();
+
+    private clouds: Clouds;
 
     private musicTheme: Sound;
 
@@ -34,6 +40,17 @@ export class Game extends Container implements SceneInterface {
     constructor() {
         super();
 
+        this.background = Sprite.from('background');
+        this.grass = Sprite.from('grass');
+
+        this.background.scale.x = 3.38;
+        this.background.scale.y = 3.38;
+
+        this.grass.scale.x = 3.38;
+        this.grass.scale.y = 3.38;
+
+        this.addChild(this.background);
+
         this.musicTheme = Sound.from(Loader.shared.resources["theme"]);
         this.musicTheme.volume = 0.2;
         this.musicTheme.loop = true;
@@ -41,6 +58,10 @@ export class Game extends Container implements SceneInterface {
 
         this.player = new Player();
         this.addChild(this.player);
+        this.addChild(this.grass);
+
+        this.clouds = new Clouds(7, 1, 0.4);
+        this.addChild(this.clouds);
 
         this.score = new Score();
         this.addChild(this.score);
@@ -66,6 +87,8 @@ export class Game extends Container implements SceneInterface {
     }
 
     public update(deltaTime: number): void {
+        this.clouds.updatePosition();
+
         this.fruits.forEach(fruit => {
             fruit.updatePosition(deltaTime);
 
@@ -81,12 +104,11 @@ export class Game extends Container implements SceneInterface {
                 }
 
                 this.healthBar.removePoint();
-
                 this.miss.play();
                 fruit.respawn()
             }
 
-            if (this.checkCollision(this.player, fruit, 60)) {
+            if (this.checkCollision(this.player.hitbox, fruit)) {
 
                 if (this.powerBar.isFilled()) {
                     this.addFruit();
@@ -105,7 +127,6 @@ export class Game extends Container implements SceneInterface {
     }
 
     private addFruit() {
-        // if (this.fruits.length < this.maxFruitCount && this.score.minusScore === 0) {
         if (this.fruits.length < this.maxFruitCount) {
             const fruit = new Fruit();
             this.fruits.push(fruit);
@@ -113,14 +134,14 @@ export class Game extends Container implements SceneInterface {
         }
     }
 
-    private checkCollision(objA: DisplayObject, objB: DisplayObject, offsetY: number): boolean {
+    private checkCollision(objA: DisplayObject, objB: DisplayObject): boolean {
         const a = objA.getBounds();
         const b = objB.getBounds();
 
         const rightmostLeft = a.left < b.left ? b.left : a.left;
         const leftmostRight = a.right > b.right ? b.right : a.right;
 
-        if (leftmostRight <= rightmostLeft + offsetY) {
+        if (leftmostRight <= rightmostLeft) {
             return false;
         }
 

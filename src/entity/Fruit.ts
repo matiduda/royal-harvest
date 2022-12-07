@@ -39,9 +39,9 @@ export class Fruit extends Container {
 
     private initFruit() {
         let textures = Loader.shared.resources.food.textures
-        var result;
-        var count = 0;
-        for (var prop in textures)
+        let result;
+        let count = 0;
+        for (let prop in textures)
             if (Math.random() < 1 / ++count)
                 result = prop;
 
@@ -53,9 +53,9 @@ export class Fruit extends Container {
 
     public respawn() {
         let textures = Loader.shared.resources.food.textures
-        var result;
-        var count = 0;
-        for (var prop in textures)
+        let result;
+        let count = 0;
+        for (let prop in textures)
             if (Math.random() < 1 / ++count)
                 result = prop;
 
@@ -65,6 +65,6 @@ export class Fruit extends Container {
         }
 
         this.fruit.x = this.spawnBorder + Math.random() * (Manager.width - 2 * this.spawnBorder);
-        this.fruit.y = Manager.height * 0.1;
+        this.fruit.y = -Manager.height * 0.1;
     }
 }

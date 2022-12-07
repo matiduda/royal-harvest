@@ -1,4 +1,4 @@
-import { Container, AnimatedSprite, Ticker, Loader, Resource, Texture } from "pixi.js";
+import { Container, AnimatedSprite, Ticker, Loader, Resource, Texture, Graphics, Rectangle } from "pixi.js";
 import { Manager } from "../scenes/SceneManager";
 import { Keyboard } from "../helper/Keyboard"
 
@@ -6,6 +6,8 @@ export class Player extends Container {
 
     private animations: Texture<Resource>[][] = [];
     private player!: AnimatedSprite;
+
+    public hitbox!: Graphics;
 
     private pose: number = 0;
 
@@ -17,7 +19,6 @@ export class Player extends Container {
 
     private acceleration: number = 0;
     private accelerationDiff: number = 2;
-
 
     constructor() {
         super();
@@ -33,16 +34,29 @@ export class Player extends Container {
         this.player.anchor.set(0.5);
 
         this.player.x = Manager.width / 2;
-        this.player.y = Manager.height - this.player.height * 1.5;
+        this.player.y = Manager.height - this.player.height * 1.9;
 
         this.player.scale.x = this.playerScale;
         this.player.scale.y = this.playerScale;
 
+        let b = this.player.getBounds();
+        this.player.hitArea = new Rectangle(b.x, b.y, 20, 20)
+
+        const hitboxWidthOffset = 60;
+        const hitboxHeightOffset = 30;
+
+        this.hitbox = new Graphics();
+        this.hitbox.drawRect(
+            -this.player.width / 2 + hitboxWidthOffset,
+            -this.player.height / 2 + hitboxHeightOffset,
+            this.player.width - 2 * hitboxWidthOffset,
+            this.player.height - hitboxHeightOffset
+        );
+
         Ticker.shared.add(this.update, this);
-
         this.addChild(this.player);
+        this.addChild(this.hitbox);
     }
-
 
     private loadPlayerAnimations() {
         const animationNames = [
@@ -67,7 +81,7 @@ export class Player extends Container {
 
         this.acceleration = 0;
 
-        if (Keyboard.state.get('ArrowRight')) {
+        if (Keyboard.state.get('ArrowRight') && !Keyboard.state.get('ArrowLeft')) {
             // Change player texture
             if (this.pose != 1) {
                 this.pose = 1;
@@ -76,8 +90,10 @@ export class Player extends Container {
                 this.player.play();
             }
 
-            this.acceleration = this.accelerationDiff;
-        } else if (Keyboard.state.get('ArrowLeft')) {
+            if (Math.abs(this.velocity) < this.velocityMax) {
+                this.acceleration = this.accelerationDiff;
+            }
+        } else if (Keyboard.state.get('ArrowLeft') && !Keyboard.state.get('ArrowRight')) {
             // Change player texture
             if (this.pose != 2) {
                 this.pose = 2;
@@ -86,10 +102,10 @@ export class Player extends Container {
                 this.player.play();
             }
 
-            this.acceleration = -this.accelerationDiff;
-        }
-
-        if (!Keyboard.state.get('ArrowLeft') && !Keyboard.state.get('ArrowRight') || Keyboard.state.get('ArrowLeft') && Keyboard.state.get('ArrowRight')) {
+            if (Math.abs(this.velocity) < this.velocityMax) {
+                this.acceleration = -this.accelerationDiff;
+            }
+        } else {
             // Change player texture to default
             if (this.pose != 0) {
                 this.pose = 0;
@@ -101,21 +117,18 @@ export class Player extends Container {
             this.acceleration = 0;
 
             // Slow player down   
-            if (this.velocity > 0) {
-                this.velocity -= this.accelerationDiff;
-            } else if (this.velocity < 0) {
-                this.velocity += this.accelerationDiff;
+            if (Math.abs(this.velocity) > 0) {
+                if (this.velocity > 0) {
+                    this.acceleration = -this.accelerationDiff;
+                } else if (this.velocity < 0) {
+                    this.acceleration = this.accelerationDiff;
+                }
             }
-        }
-
-        if (Math.abs(this.velocity) > this.velocityMax) {
-            this.acceleration = 0;
         }
 
         this.velocity += this.acceleration;
         this.player.x = this.player.x + this.velocity * deltaTime;
 
-        // Woah there clampy, come back inside the screen!
         if (this.player.x > Manager.width) {
             this.player.x = 0;
         }
@@ -123,5 +136,7 @@ export class Player extends Container {
         if (this.player.x < 0) {
             this.player.x = Manager.width;
         }
+
+        this.hitbox.position = this.player.position;
     }
 }

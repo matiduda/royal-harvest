@@ -9,10 +9,7 @@ export class Manager {
     private static _width: number;
     private static _height: number;
 
-    private constructor() {
-        // This is a static class initialized by it's own method,
-        // the construcor will not be user by the application
-    }
+    private constructor() { }
 
     public static get width(): number {
         return Manager._width;
@@ -80,4 +77,5 @@ export class Manager {
 
         // as I said before, I HATE the "frame passed" approach. I would rather use `Manager.app.ticker.deltaMS`
     }
+
 }

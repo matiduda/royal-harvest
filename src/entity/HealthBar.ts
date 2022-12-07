@@ -46,11 +46,11 @@ export class HealthBar extends Container {
     }
 
     public isEmpty() {
-        return this.points === 0;
+        return this.points === 1;
     }
 
     public removePoint() {
-        if (this.points > 0) {
+        if (this.points > 1) {
             this.points--;
         }
         this.updateBar();

@@ -1,21 +1,25 @@
 export const assets = [
     // Spritesheets
-    { name: "player", url: "./player.json" },
-    { name: "food", url: "./food.json" },
-    { name: "button", url: "./button.json" },
+    { name: "player", url: "assets/sheet/player.json" },
+    { name: "food", url: "assets/sheet/food.json" },
+    { name: "cloud", url: "assets/sheet/cloud.json" },
+    { name: "button", url: "assets/sheet/button.json" },
 
     // Textures
-    { name: "healthBar", url: "./healthBar.png" },
-    { name: "powerBar", url: "./powerBar.png" },
-    { name: "logo", url: "./logo.png" },
+    { name: "healthBar", url: "assets/texture/healthBar.png" },
+    { name: "powerBar", url: "assets/texture/powerBar.png" },
+    { name: "logo", url: "assets/texture/logo.png" },
+    { name: "background", url: "assets/texture/background.png" },
+    { name: "gradient", url: "assets/texture/gradient.png" },
+    { name: "grass", url: "assets/texture/grass.png" },
 
     // Sound effects
-    { name: "chime", url: "./chime.mp3" },
-    { name: "success", url: "./success.mp3" },
-    { name: "miss", url: "./miss.mp3" },
-    { name: "gameOver", url: "./gameOver.mp3" },
+    { name: "chime", url: "assets/sound/chime.mp3" },
+    { name: "success", url: "assets/sound/success.mp3" },
+    { name: "miss", url: "assets/sound/miss.mp3" },
+    { name: "gameOver", url: "assets/sound/gameOver.mp3" },
 
     // Music
-    { name: "theme", url: "./theme.mp3" },
-    { name: "menu", url: "./menu.mp3" },
+    { name: "theme", url: "assets/sound/theme.mp3" },
+    { name: "menu", url: "assets/sound/menu.mp3" },
 ]
