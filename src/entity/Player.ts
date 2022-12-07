@@ -5,9 +5,9 @@ import { Keyboard } from "../helper/Keyboard"
 export class Player extends Container {
 
     private animations: Texture<Resource>[][] = [];
-    private player!: AnimatedSprite;
+    private player: AnimatedSprite;
 
-    public hitbox!: Graphics;
+    public hitbox: Graphics;
 
     private pose: number = 0;
 
@@ -27,7 +27,6 @@ export class Player extends Container {
             this.loadPlayerAnimations();
         } catch (Error) {
             console.error(Error);
-            return;
         }
 
         this.player = new AnimatedSprite(this.animations[0]);
@@ -58,7 +57,7 @@ export class Player extends Container {
         this.addChild(this.hitbox);
     }
 
-    private loadPlayerAnimations() {
+    private loadPlayerAnimations(): void {
         const animationNames = [
             'knight iso char_idle',
             'knight iso char_run right',
@@ -70,7 +69,6 @@ export class Player extends Container {
 
             if (!anim) {
                 throw new Error("Player assets not loaded");
-                return;
             }
 
             this.animations.push(anim);

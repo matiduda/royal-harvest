@@ -1,7 +1,7 @@
 import { Container, DisplayObject, Loader, Sprite } from "pixi.js";
 import { Sound } from "@pixi/sound";
 import { SceneInterface } from "./SceneInterface";
-import { Fruit } from "../entity/Fruit";
+import { Food } from "../entity/Food";
 import { Player } from "../entity/Player";
 import { Manager } from "./SceneManager";
 import { HealthBar } from "../entity/HealthBar";
@@ -14,28 +14,24 @@ import { Clouds } from "../entity/Clouds";
 
 export class Game extends Container implements SceneInterface {
 
-    private background: Sprite;
-    private grass: Sprite;
+    private readonly maxFruitCount = 6;
+    private fruits: Food[] = new Array<Food>();
 
     private player: Player;
 
     private score: Score;
-
     private healthBar: HealthBar;
     private powerBar: PowerBar;
 
-    private fruits: Fruit[] = new Array<Fruit>();
-
+    private background: Sprite;
+    private grass: Sprite;
     private clouds: Clouds;
 
     private musicTheme: Sound;
-
     private chime: Sound;
     private success: Sound;
     private miss: Sound;
     private gameOver: Sound;
-
-    private readonly maxFruitCount = 6;
 
     constructor() {
         super();
@@ -63,6 +59,8 @@ export class Game extends Container implements SceneInterface {
         this.clouds = new Clouds(7, 1, 0.4);
         this.addChild(this.clouds);
 
+        this.addFruit();
+
         this.score = new Score();
         this.addChild(this.score);
 
@@ -71,8 +69,6 @@ export class Game extends Container implements SceneInterface {
 
         this.powerBar = new PowerBar();
         this.addChild(this.powerBar);
-
-        this.addFruit();
 
         this.chime = Sound.from(Loader.shared.resources["chime"]);
         this.success = Sound.from(Loader.shared.resources["success"]);
@@ -126,9 +122,9 @@ export class Game extends Container implements SceneInterface {
 
     }
 
-    private addFruit() {
+    private addFruit(): void {
         if (this.fruits.length < this.maxFruitCount) {
-            const fruit = new Fruit();
+            const fruit = new Food();
             this.fruits.push(fruit);
             this.addChild(fruit);
         }

@@ -4,6 +4,10 @@ import { Keyboard } from "./Keyboard";
 
 export class TouchArea extends Container {
 
+    // These methods are responsible for the translation
+    // of touch events to keyboard presses. This makes
+    // it possible to play the game on mobile devices.
+
     private left: Sprite;
     private right: Sprite;
 
@@ -29,20 +33,19 @@ export class TouchArea extends Container {
         this.addChild(this.left, this.right);
     }
 
-    private leftPressed() {
+    private leftPressed(): void {
         Keyboard.state.set('ArrowLeft', true);
-
     }
 
-    private leftDone() {
+    private leftDone(): void {
         Keyboard.state.set('ArrowLeft', false);
     }
 
-    private rightPressed() {
+    private rightPressed(): void {
         Keyboard.state.set('ArrowRight', true);
     }
 
-    private rightDone() {
+    private rightDone(): void {
         Keyboard.state.set('ArrowRight', false);
     }
 }

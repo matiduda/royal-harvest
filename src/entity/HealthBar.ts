@@ -45,18 +45,18 @@ export class HealthBar extends Container {
         this.points = 10;
     }
 
-    public isEmpty() {
+    public isEmpty(): boolean {
         return this.points === 1;
     }
 
-    public removePoint() {
+    public removePoint(): void {
         if (this.points > 1) {
             this.points--;
         }
         this.updateBar();
     }
 
-    private updateBar() {
+    private updateBar(): void {
         this.fill.scale.x = this.points / this.maxPoints;
     }
 }

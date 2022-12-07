@@ -53,9 +53,7 @@ export class Clouds extends Container {
                 cloud.x = -cloud.width;
                 cloud.y = Math.random() * (Manager.height * this.maxHeight - cloud.height);
             }
-
             cloud.x += this.velocity;
         });
-
     }
 }

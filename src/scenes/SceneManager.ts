@@ -19,7 +19,6 @@ export class Manager {
     }
 
     public static initialize(width: number, height: number, background: number): void {
-
         Manager._width = width;
         Manager._height = height;
 
@@ -69,13 +68,9 @@ export class Manager {
     }
 
     private static update(framesPassed: number): void {
-        // Let the current scene know that we updated it...
-        // Just for funzies, sanity check that it exists first.
         if (Manager.currentScene) {
             Manager.currentScene.update(framesPassed);
         }
-
-        // as I said before, I HATE the "frame passed" approach. I would rather use `Manager.app.ticker.deltaMS`
     }
 
 }

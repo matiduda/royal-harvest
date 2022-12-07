@@ -1,7 +1,10 @@
-# Royal harvest
+<div align="center">
+    <img src="screenshot.png" width="500">
+</div>
 
-> #### **Backstory**
->
+#### **Backstory**
+
+
 > *Once upon a time, there was a Knight from a Land Far, Far Away. He defended The Kingdom where people lived a peaceful life. Recently, however, due to the drought, the people in The Kindgom have been starving. Then, one day, the Knight saw a true miracle - a start falling from the sky. Suddenly, an **unprecedented amount of food** began falling from the sky. So he began to catch as many of them as he could.*
 
 ## How to build

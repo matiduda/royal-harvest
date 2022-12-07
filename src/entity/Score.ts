@@ -27,11 +27,11 @@ export class Score extends Container {
         this.addChild(this.text);
     }
 
-    public add() {
+    public add(): void {
         this.text.text = String(++this.score);
     }
 
-    public getScore() {
+    public getScore(): number {
         return this.score;
     }
 }

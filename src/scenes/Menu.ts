@@ -7,43 +7,41 @@ import { Clouds } from "../entity/Clouds";
 
 export class Menu extends Container implements SceneInterface {
 
-    private startButton: Sprite;
-    private textures: Texture<Resource>[] = [];
-
-    private background: Sprite;
-
     private logo: Sprite;
     private logoTexture!: Texture<Resource>;
 
-    private menuTheme: Sound;
-
-    private logoDiff: number = 0;
     private readonly logoDiffMax: number = 15;
+    private logoDiff: number = 0;
     private logoSpeed: number = -0.1;
 
     private clouds: Clouds;
 
+    private startButton: Sprite;
+    private startButtonTextures: Texture<Resource>[] = [];
+
+    private background: Sprite;
+
+    private music: Sound;
+
     constructor() {
         super();
 
-        this.menuTheme = Sound.from(Loader.shared.resources["menu"]);
-        this.menuTheme.volume = 0.2;
-        this.menuTheme.loop = true;
-        this.menuTheme.play();
+        try {
+            this.loadButtonTextures();
+        } catch (Error) {
+            console.log(Error);
+        }
 
-        this.loadTextures();
-
-        this.startButton = Sprite.from(this.textures[0]);
+        // Start button
+        this.startButton = Sprite.from(this.startButtonTextures[0]);
 
         this.startButton.anchor.set(0.5);
         this.startButton.x = Manager.width / 2;
         this.startButton.y = Manager.height * 0.65;
-
         this.startButton.scale.x = 7;
         this.startButton.scale.y = 7;
 
         this.startButton.interactive = true;
-
         this.startButton.buttonMode = true;
 
         this.startButton.on('pointerdown', () => this.onClick());
@@ -51,11 +49,13 @@ export class Menu extends Container implements SceneInterface {
         this.startButton.on('pointerup', () => this.loadGame());
         this.startButton.on('pointerout', () => this.onPointerOut());
 
+        // Background
         this.background = Sprite.from('gradient');
         this.background.scale.x = 3.38;
         this.background.scale.y = 3.38;
         this.addChild(this.background);
 
+        // Logo
         this.logo = Sprite.from(this.logoTexture);
         this.logo.anchor.set(0.5);
         this.logo.x = Manager.width / 2;
@@ -63,68 +63,66 @@ export class Menu extends Container implements SceneInterface {
         this.logo.scale.x = 6;
         this.logo.scale.y = 6;
 
-        this.clouds = new Clouds()
-        this.addChild(this.clouds);
+        // Menu music
+        this.music = Sound.from(Loader.shared.resources["menu"]);
+        this.music.volume = 0.2;
+        this.music.loop = true;
+        this.music.play();
 
+        this.clouds = new Clouds()
+
+        this.addChild(this.clouds);
         this.addChild(this.startButton);
         this.addChild(this.logo);
     }
 
-    private loadTextures() {
-        const buttonNames = [
-            'normal.png',
-            'hover.png',
-            'pressed.png'
-        ];
-
-        buttonNames.forEach(name => {
-            const buttonSource = Loader.shared.resources.button.textures;
-
-            if (!buttonSource) {
-                throw new Error("Button assets not loaded");
-                return;
-            }
-
-            this.textures.push(buttonSource[name]);
-        });
-
-        const logoSource = Loader.shared.resources.logo.texture;
-        if (!logoSource) {
-            throw new Error("Logo not loaded");
-            return;
+    public update(): void {
+        if (Math.abs(this.logoDiff) >= this.logoDiffMax) {
+            this.logoSpeed *= -1;
         }
+        this.logo.y += this.logoSpeed;
+        this.logoDiff += this.logoSpeed;
 
-        this.logoTexture = logoSource;
+        this.clouds.updatePosition();
     }
 
-    private onClick() {
-        this.startButton.texture = this.textures[2];
-    }
-
-    private onPointerOver() {
-        this.startButton.texture = this.textures[1];
-    }
-
-    private onPointerOut() {
-        this.startButton.texture = this.textures[0];
-    }
-
-    private loadGame() {
-        this.menuTheme.stop();
+    private loadGame(): void {
+        this.music.stop();
 
         const game: Game = new Game();
         Manager.changeScene(game);
     }
 
-    public update() {
-        // Move logo
-        if (Math.abs(this.logoDiff) >= this.logoDiffMax) {
-            this.logoSpeed *= -1;
+    private loadButtonTextures(): void {
+        const buttonNames: string[] = [
+            'normal.png',
+            'hover.png',
+            'pressed.png'
+        ];
+
+        const textureSource = Loader.shared.resources.button.textures;
+        const logoSource = Loader.shared.resources.logo.texture;
+
+        if (!textureSource || !logoSource) {
+            throw new Error("Menu assets not loaded");
         }
 
-        this.logo.y += this.logoSpeed;
-        this.logoDiff += this.logoSpeed;
+        buttonNames.forEach(name => {
+            this.startButtonTextures.push(textureSource[name]);
+        });
 
-        this.clouds.updatePosition();
+        this.logoTexture = logoSource;
+    }
+
+    private onPointerOut(): void {
+        this.startButton.texture = this.startButtonTextures[0];
+    }
+
+    private onPointerOver(): void {
+        this.startButton.texture = this.startButtonTextures[1];
+    }
+
+    private onClick(): void {
+        this.startButton.texture = this.startButtonTextures[2];
     }
 }

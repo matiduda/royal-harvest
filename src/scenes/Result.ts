@@ -54,7 +54,6 @@ export class Result extends Container implements SceneInterface {
         this.mainText.x = Manager.width / 2;
         this.mainText.y = Manager.height * 0.4;
 
-
         this.subText = new Text(message, subStyle);
 
         this.subText.anchor.set(0.5);
@@ -73,7 +72,6 @@ export class Result extends Container implements SceneInterface {
         this.startButton.scale.y = 7;
 
         this.startButton.interactive = true;
-
         this.startButton.buttonMode = true;
 
         this.startButton.on('pointerdown', () => this.onClick());
@@ -103,23 +101,22 @@ export class Result extends Container implements SceneInterface {
         });
     }
 
-    private onClick() {
+    private onClick(): void {
         this.startButton.texture = this.textures[2];
     }
 
-    private onPointerOver() {
+    private onPointerOver(): void {
         this.startButton.texture = this.textures[1];
     }
 
-    private onPointerOut() {
+    private onPointerOut(): void {
         this.startButton.texture = this.textures[0];
     }
 
-    private loadGame() {
+    private loadGame(): void {
         const game: Game = new Game();
         Manager.changeScene(game);
     }
 
-    public update() {
-    }
+    public update() { }
 }

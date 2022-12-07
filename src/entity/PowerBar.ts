@@ -44,11 +44,11 @@ export class PowerBar extends Container {
         this.points = 0;
     }
 
-    public isFilled() {
+    public isFilled(): boolean {
         return this.points === this.maxPoints - 1;
     }
 
-    public addPoint() {
+    public addPoint(): void {
         if (this.points < this.maxPoints - 1) {
             this.points++;
         } else {
@@ -58,7 +58,7 @@ export class PowerBar extends Container {
         this.updateBar();
     }
 
-    private updateBar() {
+    private updateBar(): void {
         this.fill.scale.x = this.points / this.maxPoints;
     }
 }
