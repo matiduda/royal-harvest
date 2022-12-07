@@ -9,10 +9,11 @@ export class Keyboard {
     }
 
     private static keyDown(e: KeyboardEvent): void {
-        Keyboard.state.set(e.code, true)
+        Keyboard.state.set(e.code, true);
     }
 
     private static keyUp(e: KeyboardEvent): void {
-        Keyboard.state.set(e.code, false)
+        Keyboard.state.set(e.code, false);
+
     }
 }

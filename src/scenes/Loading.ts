@@ -1,7 +1,7 @@
 import { Container, Graphics, Loader } from "pixi.js";
 import { assets } from "../assets";
 import { Manager } from "./SceneManager";
-import { Game } from "./Game";
+import { Menu } from "./Menu";
 import { SceneInterface } from "./SceneInterface";
 
 export class Loading extends Container implements SceneInterface {
@@ -46,11 +46,9 @@ export class Loading extends Container implements SceneInterface {
     }
 
     private gameLoaded(): void {
-        // Change scene to the game scene!
-        Manager.changeScene(new Game());
+        Manager.changeScene(new Menu());
     }
 
     public update(): void {
-        // To be a scene we must have the update method even if we don't use it.
     }
 }

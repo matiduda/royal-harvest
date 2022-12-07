@@ -1,4 +1,4 @@
-import { Container, Sprite, Texture, Loader, SCALE_MODES } from "pixi.js";
+import { Container, Sprite, Texture, Loader } from "pixi.js";
 import { Manager } from "../scenes/SceneManager";
 
 export class Fruit extends Container {
@@ -47,8 +47,6 @@ export class Fruit extends Container {
 
         if (result) {
             const texture = Texture.from(result);
-            texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
-
             this.fruit = Sprite.from(texture);
         }
     }
@@ -63,8 +61,6 @@ export class Fruit extends Container {
 
         if (result) {
             const texture = Texture.from(result);
-            texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
-
             this.fruit.texture = texture;
         }
 

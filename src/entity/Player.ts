@@ -1,4 +1,4 @@
-import { Container, AnimatedSprite, Ticker, Loader, SCALE_MODES, Resource, Texture } from "pixi.js";
+import { Container, AnimatedSprite, Ticker, Loader, Resource, Texture } from "pixi.js";
 import { Manager } from "../scenes/SceneManager";
 import { Keyboard } from "../helper/Keyboard"
 
@@ -12,7 +12,6 @@ export class Player extends Container {
     // Movement constants
     private velocity: number = 0;
     private velocityMax: number = 12;
-
 
     private playerScale: number = 2.5;
 
@@ -31,13 +30,10 @@ export class Player extends Container {
         }
 
         this.player = new AnimatedSprite(this.animations[0]);
-        this.player.texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
-
         this.player.anchor.set(0.5);
 
         this.player.x = Manager.width / 2;
-        this.player.y = Manager.height * 0.9;
-
+        this.player.y = Manager.height - this.player.height * 1.5;
 
         this.player.scale.x = this.playerScale;
         this.player.scale.y = this.playerScale;
@@ -45,9 +41,6 @@ export class Player extends Container {
         Ticker.shared.add(this.update, this);
 
         this.addChild(this.player);
-
-        new Keyboard();
-        Keyboard.initialize();
     }
 
 

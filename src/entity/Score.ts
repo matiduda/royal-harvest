@@ -1,100 +1,37 @@
-import { Container, Sprite, SCALE_MODES, Graphics } from "pixi.js";
+import { Container, Text, TextStyle } from "pixi.js";
 import { Manager } from "../scenes/SceneManager";
 
 export class Score extends Container {
 
-    private progressBar: Container;
-    private progressBarBoder: Sprite;
+    private text: Text;
 
-    private minusBarFill: Graphics;
-    private plusBarFill: Graphics;
-
-    private readonly plusColor: number = 0xfeae34;
-    private readonly minusColor: number = 0x8b9bb4;
-
-    private readonly barScale = 6;
-
-    public plusScore: number;
-    public minusScore: number;
-
-    private readonly maxScore: number = 8;
+    private score: number = 0;
 
     constructor() {
         super();
 
-        this.progressBarBoder = Sprite.from('bar');
-        this.progressBarBoder.texture.baseTexture.scaleMode = SCALE_MODES.NEAREST
+        const styly: TextStyle = new TextStyle({
+            fontFamily: 'Courier New',
+            fontSize: 55,
+            fontWeight: 'bold',
+            fill: 0x0F0F0F,
+            align: 'center',
+        });
 
-        this.progressBarBoder.scale.x = this.barScale;
-        this.progressBarBoder.scale.y = this.barScale;
+        this.text = new Text('0', styly); // Text supports unicode!
 
-        const pw = this.progressBarBoder.width;
-        const ph = this.progressBarBoder.height;
+        this.text.anchor.set(0.5);
+        this.text.x = Manager.width / 2;
+        this.text.y = Manager.height * 0.1;
 
-        this.plusBarFill = new Graphics();
-        this.plusBarFill.beginFill(this.plusColor, 1)
-        this.plusBarFill.drawRect(0, 0, pw * 0.47, ph * 0.455);
-        this.plusBarFill.endFill();
-
-        this.plusBarFill.x = pw * 0.525;
-        this.plusBarFill.y = ph * 0.27;
-        this.plusBarFill.scale.x = 0;
-
-        this.minusBarFill = new Graphics();
-        this.minusBarFill.beginFill(this.minusColor, 1)
-        this.minusBarFill.drawRect(0, 0, pw * 0.47, ph * 0.455);
-        this.minusBarFill.endFill();
-
-        this.minusBarFill.x = pw * 0.477;
-        this.minusBarFill.y = ph * 0.27
-        this.minusBarFill.scale.x = 0;
-
-        this.progressBar = new Container();
-        this.progressBar.addChild(this.plusBarFill);
-        this.progressBar.addChild(this.minusBarFill);
-        this.progressBar.addChild(this.progressBarBoder);
-        this.progressBar.x = (Manager.width - this.progressBar.width) / 2;
-        this.progressBar.y = 60;
-        this.addChild(this.progressBar);
-
-        this.plusScore = 0;
-        this.minusScore = 0;
+        this.addChild(this.text);
     }
 
-    public levelUp() {
-        return this.plusScore === this.maxScore;
+    public add() {
+        this.text.text = String(++this.score);
     }
 
-    public addPoint() {
-        if (this.plusScore < this.maxScore) {
-            this.plusScore++;
-        } else {
-            this.plusScore = 0;
-
-            if (this.minusScore > 0) {
-                this.minusScore--;
-                this.updateMinusBar();
-            }
-        }
-
-        this.updatePlusBar();
-    }
-
-    public removePoint() {
-        if (this.minusScore < this.maxScore) {
-            this.minusScore++;
-        } else {
-            this.minusScore = 0;
-        }
-
-        this.updateMinusBar();
-    }
-
-    private updatePlusBar() {
-        this.plusBarFill.scale.x = this.plusScore * 0.125;
-    }
-
-    private updateMinusBar() {
-        this.minusBarFill.scale.x = this.minusScore * -0.125;
+    public getScore() {
+        return this.score;
     }
 }

@@ -2,7 +2,7 @@
 
 > #### **Backstory**
 >
-> *Once upon a time, there was a knight from a Land Far, Far Away. He lived a peaceful life and did not stand out in any particular way. Although he stood by his kingdom, there were also times when he felt like dropping everything and becoming an ordinary worker. One day, after waking up, the knight saw a miracle. Suddenly, an **uncountable amount of fruits** began to fall from the sky. So he tried to catch them all!*
+> *Once upon a time, there was a knight from a Land Far, Far Away. Although they lived a peaceful life, recently, due to the drought, the kindom has been starving. The One day when the Knighs was going to he knight saw a true miracle - a start falling from the sky. suddenly, an **uncountable amount of fruits** began to fall from the sky. So he tried to catch them all!*
 
 ### Assets
 
@@ -12,6 +12,10 @@
 - [Buttons](https://spicygame.itch.io/buttons) by SpicyGame Studios
 - [Pixel heart](https://opengameart.org/content/heart-pixel-art) by Dansevenstar
 - [GUI Graphics Kit](https://jamiecross.itch.io/graphical-user-interface-graphics-kit-free) by Jamie Cross ?????
+- [Ancient Modern Tales Font](https://www.fontspace.com/ancient-modern-tales-font-f28700) by Chequered Ink
+- [Parchment](https://opengameart.org/content/parchment) by Mattias Lejbrink
+- [How to make a lightning pixel art?](https://www.youtube.com/watch?v=JABpIfSpZ2I)
+- [Videogame Death Sound](https://pixabay.com/pl/sound-effects/videogame-death-sound-43894/) by Fupicat
 
 maybe ??
 https://opengameart.org/

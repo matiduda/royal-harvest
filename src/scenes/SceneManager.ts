@@ -1,4 +1,4 @@
-import { Application } from "pixi.js";
+import { Application, SCALE_MODES, settings } from "pixi.js";
 import { SceneInterface } from "./SceneInterface";
 
 export class Manager {
@@ -34,6 +34,8 @@ export class Manager {
             width: width,
             height: height
         });
+
+        settings.SCALE_MODE = SCALE_MODES.NEAREST;
 
         Manager.app.ticker.add(Manager.update)
 
