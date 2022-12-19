@@ -18,7 +18,7 @@ export class Player extends Container {
     private playerScale: number = 2.5;
 
     private acceleration: number = 0;
-    private accelerationDiff: number = 2;
+    private accelerationDiff: number = 1;
 
     constructor() {
         super();
@@ -79,8 +79,8 @@ export class Player extends Container {
 
         this.acceleration = 0;
 
-        if (Keyboard.state.get('ArrowRight') && !Keyboard.state.get('ArrowLeft')) {
-            // Change player texture
+        // Change player state
+        if (Keyboard.state.get('ArrowRight')) {
             if (this.pose != 1) {
                 this.pose = 1;
                 this.player.textures = this.animations[1];
@@ -91,17 +91,13 @@ export class Player extends Container {
             if (Math.abs(this.velocity) < this.velocityMax) {
                 this.acceleration = this.accelerationDiff;
             }
-        } else if (Keyboard.state.get('ArrowLeft') && !Keyboard.state.get('ArrowRight')) {
+        } else if (Keyboard.state.get('ArrowLeft')) {
             // Change player texture
             if (this.pose != 2) {
                 this.pose = 2;
                 this.player.textures = this.animations[2];
                 this.player.animationSpeed = 0.16;
                 this.player.play();
-            }
-
-            if (Math.abs(this.velocity) < this.velocityMax) {
-                this.acceleration = -this.accelerationDiff;
             }
         } else {
             // Change player texture to default
@@ -111,16 +107,34 @@ export class Player extends Container {
                 this.player.animationSpeed = 0.1;
                 this.player.play();
             }
+        }
 
-            this.acceleration = 0;
+        switch (this.pose) {
+            case 0: { // Standing
 
-            // Slow player down   
-            if (Math.abs(this.velocity) > 0) {
-                if (this.velocity > 0) {
-                    this.acceleration = -this.accelerationDiff;
-                } else if (this.velocity < 0) {
+                // Slow player down   
+                if (Math.abs(this.velocity) > 0) {
+                    if (this.velocity > 0) {
+                        this.acceleration = -this.accelerationDiff;
+                    } else if (this.velocity < 0) {
+                        this.acceleration = this.accelerationDiff;
+                    }
+                }
+                break;
+            }
+            case 1: { // Moving right
+                // Speed player up   
+                if (this.velocity + this.accelerationDiff <= this.velocityMax) {
                     this.acceleration = this.accelerationDiff;
                 }
+                break;
+            }
+            case 2: { // Moving left
+                // Speed player up   
+                if (-(this.velocity + this.accelerationDiff) <= this.velocityMax) {
+                    this.acceleration = -this.accelerationDiff;
+                }
+                break;
             }
         }
 
