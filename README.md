@@ -1,4 +1,4 @@
-###[Try it now](https://matiduda.netlify.app/game/)
+### [Try it now](https://matiduda.netlify.app/game/)
 
 <div align="center">
     <img src="screenshot.png" width="500">
