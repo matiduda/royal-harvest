@@ -1,6 +1,5 @@
-### [Try it now](https://matiduda.netlify.app/game/)
-
 <div align="center">
+    ### [Try it now](https://matiduda.netlify.app/game/)
     <img src="screenshot.png" width="500">
 </div>
 
