@@ -1,5 +1,5 @@
 <div align="center">
-    <a href="https://matiduda.netlify.app/game/">Play here!</a></br>
+    <h2><a href="https://matiduda.netlify.app/game/">Play here!</a></h2></br>
     <img src="screenshot.png" width="500">
 </div>
 
