@@ -1,4 +1,5 @@
 <div align="center">
+    <h2><a href="https://matiduda.netlify.app/game/">Play here!</a></h2>
     <img src="screenshot.png" width="500">
 </div>
 
@@ -35,3 +36,5 @@ npm install && npm start
 - [success](https://pixabay.com/sound-effects/success-68578/) and [success 02](https://pixabay.com/sound-effects/success-02-68338/) by gamer127
 - [cymbal](https://pixabay.com/sound-effects/cymbal-83127/) by mo damage
 - [Videogame Death Sound](https://pixabay.com/pl/sound-effects/videogame-death-sound-43894/) by Fupicat
+
+my personal best: 161 pts 🤙
